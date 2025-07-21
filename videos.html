@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubu Reels</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="top-nav">
+        <button onclick="window.location.href='bubu.html'">&larr; Back</button>
+    </nav>
+    <main class="centered">
+        <h1>Bubu Reels</h1>
+        <div id="video-reel-container">
+            <div id="sorry-leaf-container"></div>
+            <video id="reel-video" width="320" height="480" controls autoplay playsinline></video>
+            <div class="reel-controls">
+                <button onclick="prevVideo()">&#8592; Prev</button>
+                <button onclick="nextVideo()">Next &#8594;</button>
+            </div>
+        </div>
+        <div id="final-popup" style="display:none;">
+            <div class="popup-message">
+                <h2>Thank you for watching, Bubu! 💖</h2>
+                <p>Tum mere liye bahut special ho. I hope you liked it! now ab mere se nhi ho rha hai bubu i am dead now i just say sorry to you and Bubu i am sorry i love Youuu...</p>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+    <script>
+    // List your video files here
+    const videos = [
+        'assets/video/bubu.mp4',
+        'assets/video/bubu2.mp4',
+        'assets/video/bubu3.mp4',
+        'assets/video/bubu4.mp4',
+        'assets/video/bubu5.mp4',
+    ];
+    let current = 0;
+    const videoEl = document.getElementById('reel-video');
+    const sorryLeafContainer = document.getElementById('sorry-leaf-container');
+    let sorryLeafInterval = null;
+    let currentLeafText = 'I am sorry';
+    function loadVideo(idx) {
+        videoEl.src = videos[idx];
+        videoEl.load();
+        videoEl.play();
+        // Falling text for first, second, third, fourth, and fifth video only
+        if (idx === 0) {
+            currentLeafText = 'I am sorry';
+            startSorryLeaves();
+        } else if (idx === 1) {
+            currentLeafText = 'I live only for you';
+            startSorryLeaves();
+        } else if (idx === 2) {
+            currentLeafText = 'wanna be yours';
+            startSorryLeaves();
+        } else if (idx === 3) {
+            currentLeafText = "don't leave me";
+            startSorryLeaves();
+        } else if (idx === 4) {
+            currentLeafText = "i miss you bubu";
+            startSorryLeaves();
+        } else {
+            stopSorryLeaves();
+        }
+    }
+    function nextVideo() {
+        if (current === videos.length - 1) {
+            // Last video, show popup and hide video section
+            document.getElementById('video-reel-container').style.display = 'none';
+            document.getElementById('final-popup').style.display = 'flex';
+        } else {
+            current = (current + 1) % videos.length;
+            loadVideo(current);
+        }
+    }
+    function prevVideo() {
+        current = (current - 1 + videos.length) % videos.length;
+        loadVideo(current);
+    }
+    videoEl.onended = function() {
+        if (current === 4) {
+            // Last video ended
+            document.getElementById('video-reel-container').style.display = 'none';
+            document.getElementById('final-popup').style.display = 'flex';
+        } else {
+            nextVideo();
+        }
+    };
+    function createSorryLeaf() {
+        const leaf = document.createElement('div');
+        leaf.className = 'sorry-leaf-normal';
+        leaf.innerText = currentLeafText;
+        // Get video element position and size
+        const videoRect = videoEl.getBoundingClientRect();
+        const containerRect = sorryLeafContainer.getBoundingClientRect();
+        // Randomly choose a side: top, left, or right
+        const side = Math.random();
+        if (side < 0.33) {
+            // Top: random X over video
+            leaf.style.left = (videoEl.offsetLeft + Math.random() * videoEl.offsetWidth) + 'px';
+            leaf.style.top = (videoEl.offsetTop - 30) + 'px';
+        } else if (side < 0.66) {
+            // Left: random Y along video
+            leaf.style.left = (videoEl.offsetLeft - 60) + 'px';
+            leaf.style.top = (videoEl.offsetTop + Math.random() * videoEl.offsetHeight) + 'px';
+        } else {
+            // Right: random Y along video
+            leaf.style.left = (videoEl.offsetLeft + videoEl.offsetWidth + 10) + 'px';
+            leaf.style.top = (videoEl.offsetTop + Math.random() * videoEl.offsetHeight) + 'px';
+        }
+        sorryLeafContainer.appendChild(leaf);
+        setTimeout(() => leaf.remove(), 3500);
+    }
+    function startSorryLeaves() {
+        if (sorryLeafInterval) return;
+        sorryLeafInterval = setInterval(createSorryLeaf, 700);
+    }
+    function stopSorryLeaves() {
+        clearInterval(sorryLeafInterval);
+        sorryLeafInterval = null;
+        sorryLeafContainer.innerHTML = '';
+    }
+    // Initial load
+    loadVideo(current);
+    </script>
+</body>
+</html> 

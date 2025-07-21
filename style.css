@@ -1,0 +1,270 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ffb6c1 0%, #b19cd9 100%);
+    min-height: 100vh;
+    color: #333;
+}
+.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+}
+h1 {
+    color: #ff69b4;
+    margin-bottom: 0.5em;
+}
+.love-letter {
+    background: rgba(255,255,255,0.85);
+    border-radius: 16px;
+    padding: 1.5em;
+    margin-top: 1.5em;
+    font-size: 1.2em;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    color: #b19cd9;
+}
+.bottom-tabs {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    padding: 1em 0;
+    z-index: 100;
+}
+.bottom-tabs button {
+    background: #ff69b4;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 0.7em 2em;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255,105,180,0.15);
+    transition: background 0.2s;
+}
+.bottom-tabs button:hover {
+    background: #b19cd9;
+}
+.top-nav {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+}
+.top-nav button {
+    background: #b19cd9;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 0.5em 1.2em;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(177,156,217,0.15);
+    transition: background 0.2s;
+}
+.top-nav button:hover {
+    background: #ff69b4;
+}
+#animation-container {
+    position: relative;
+    width: 100%;
+    height: 120px;
+    min-height: 120px;
+    margin-bottom: 1.5em;
+}
+.heart {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: url('data:image/svg+xml;utf8,<svg width=\'32\' height=\'32\' viewBox=\'0 0 32 32\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M16 29s-13-8.35-13-17A7 7 0 0 1 16 5a7 7 0 0 1 13 7c0 8.65-13 17-13 17z\' fill=\'%23ff69b4\'/></svg>') no-repeat center/contain;
+    top: 0;
+    animation: floatDown 3s linear forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+@keyframes floatDown {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; transform: translateY(120px) scale(1.2); }
+}
+#video-reel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+    position: relative;
+}
+#sorry-overlay {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    color: #ff69b4;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #fff, 0 4px 24px #b19cd9;
+    pointer-events: none;
+    z-index: 20;
+    animation: sorryDrop 2s cubic-bezier(.68,-0.55,.27,1.55) 1, sorryFloat 2s 2s infinite alternate ease-in-out;
+    display: none;
+}
+@keyframes sorryDrop {
+    0% { top: -60px; opacity: 0; }
+    60% { top: 30px; opacity: 1; }
+    100% { top: 30px; opacity: 1; }
+}
+@keyframes sorryFloat {
+    0% { transform: translateX(-50%) translateY(0); }
+    100% { transform: translateX(-50%) translateY(15px); }
+}
+.sorry-leaf {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    font-size: 1.5em;
+    color: #ff69b4;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #fff, 0 4px 24px #b19cd9;
+    pointer-events: none;
+    z-index: 30;
+    opacity: 0.9;
+    animation: sorryLeafFall 5s linear forwards;
+    user-select: none;
+    white-space: nowrap;
+}
+@keyframes sorryLeafFall {
+    0% {
+        transform: translateX(0) rotate(-10deg);
+        opacity: 1;
+    }
+    20% {
+        transform: translateX(30px) rotate(10deg);
+    }
+    40% {
+        transform: translateX(-30px) rotate(-10deg);
+    }
+    60% {
+        transform: translateX(30px) rotate(10deg);
+    }
+    80% {
+        transform: translateX(-30px) rotate(-10deg);
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+        transform: translateX(0) rotate(0deg);
+    }
+}
+.sorry-leaf-normal {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    font-size: 1.5em;
+    color: #ff69b4;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #fff, 0 4px 24px #b19cd9;
+    pointer-events: none;
+    z-index: 30;
+    opacity: 0.9;
+    animation: sorryLeafNormalFall 5s linear forwards;
+    user-select: none;
+    white-space: nowrap;
+}
+@keyframes sorryLeafNormalFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+        transform: translateY(200px);
+    }
+}
+#reel-video {
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    background: #fff;
+    max-width: 100vw;
+    max-height: 60vh;
+}
+.reel-controls {
+    margin-top: 1em;
+    display: flex;
+    gap: 1.5em;
+}
+.reel-controls button {
+    background: #ff69b4;
+    color: #fff;
+    border: none;
+    border-radius: 16px;
+    padding: 0.7em 2em;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255,105,180,0.15);
+    transition: background 0.2s;
+}
+.reel-controls button:hover {
+    background: #b19cd9;
+}
+#final-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('assets/bg/bubu.jpg') center center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.popup-message {
+    text-align: center;
+}
+.popup-message h2 {
+    color: #ff69b4;
+    margin-bottom: 0.5em;
+    font-size: 2.2em;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #fff, 0 0 4px #b19cd9, 0 0 2px #000, 0 0 12px #fff;
+}
+.popup-message p {
+    color: #b19cd9;
+    font-size: 1.4em;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #fff, 0 0 4px #b19cd9, 0 0 2px #000, 0 0 12px #fff;
+}
+@media (max-width: 600px) {
+    .centered {
+        min-height: 70vh;
+        padding: 1em;
+    }
+    .love-letter {
+        font-size: 1em;
+        padding: 1em;
+    }
+    .bottom-tabs button {
+        padding: 0.7em 1.2em;
+        font-size: 1em;
+    }
+    #reel-video {
+        width: 100vw;
+        height: 50vw;
+        max-height: 50vh;
+    }
+    .reel-controls button {
+        padding: 0.7em 1em;
+        font-size: 1em;
+    }
+} 
